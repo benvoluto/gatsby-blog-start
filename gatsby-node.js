@@ -57,3 +57,16 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     });
   }
 };
+
+// exports.createSchemaCustomization = ({ actions }) => {
+//   const { createTypes } = actions
+
+//   createTypes(`
+//     type Mdx implements Node {
+//       frontmatter: MdxFrontmatter!
+//     }
+//     type MdxFrontmatter {
+//       featuredImage: String
+//     }
+//   `)
+// }

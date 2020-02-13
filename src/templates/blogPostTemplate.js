@@ -1,7 +1,13 @@
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import styled from 'styled-components';
 import React from 'react';
+import Img from 'gatsby-image';
 import { Layout } from '../components/Layout';
+
+const Image = styled(Img)`
+  border-radius: 5px;
+`;
 
 export default ({ data, pageContext }) => {
   const { frontmatter, body } = data.mdx;
@@ -10,6 +16,9 @@ export default ({ data, pageContext }) => {
     <Layout>
       <h1>{frontmatter.title}</h1>
       <p>{frontmatter.date}</p>
+      {!!frontmatter.featuredImage ? (
+        <Image sizes={frontmatter.featuredImage.childImageSharp.fluid} />
+      ) : null}
       <MDXRenderer>{body}</MDXRenderer>
       {previous === false ? null : (
         <div>
@@ -40,6 +49,13 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "YYYY MMMM Do")
+        featuredImage {
+          childImageSharp {
+            fluid(maxWidth: 800) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }
